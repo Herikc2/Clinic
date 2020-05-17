@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initializeButtons();
+        criarDB();
     }
 
     private void initializeButtons(){
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void criarDB(){
-        db = openOrCreateDatabase("“consulta.db", Context.MODE_PRIVATE, null);
+        db = openOrCreateDatabase("“consulta3.db", Context.MODE_PRIVATE, null);
 
         StringBuilder sql = new StringBuilder();
         sql.append("CREATE TABLE IF NOT EXISTS medico (");
@@ -99,14 +100,14 @@ public class MainActivity extends AppCompatActivity {
         sql.append("fixo VARCHAR(20)");
         sql.append(");");
 
-        sql.append("CREATE TABLE IF NOT EXISTS paciente (");
+        sql.append("CREATE TABLE IF NOT EXISTS paciente(");
         sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
-        sql.append("nome VARCHAR(50), ");
-        sql.append("grp_sanguineo TINYINT(1), ");
-        sql.append("logradouro VARCHAR(100), ");
+        sql.append("nome VARCHAR(125), ");
+        sql.append("grp_sanguineo varchar(5), ");
+        sql.append("logradouro VARCHAR(125), ");
         sql.append("numero MEDIUMINT(8), ");
-        sql.append("cidade VARCHAR(30), ");
-        sql.append("uf VARCHAR(2), ");
+        sql.append("cidade VARCHAR(50), ");
+        sql.append("uf VARCHAR(50), ");
         sql.append("celular VARCHAR(20), ");
         sql.append("fixo VARCHAR(20)");
         sql.append(");");
