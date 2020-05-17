@@ -33,6 +33,7 @@
 
     <!-- Arrays -->
     <string-array name="brazil_states_array">
+        <item>Selecione seu Estado</item>
         <item>Acre (AC)</item>
         <item>Alagoas (AL)</item>
         <item>Amapá (AP)</item>
@@ -62,6 +63,7 @@
         <item>Tocantins (TO)</item>
     </string-array>
     <string-array name="blood_types_array">
+        <item>Selecione seu tipo Sanguineio</item>
         <item>O−</item>
         <item>O+</item>
         <item>A−</item>
