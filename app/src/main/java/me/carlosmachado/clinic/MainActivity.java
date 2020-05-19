@@ -27,9 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        initializeButtons();
         criarDB();
+        initializeButtons();
     }
 
     private void initializeButtons(){
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void criarDB(){
-        db = openOrCreateDatabase("“consulta3.db", Context.MODE_PRIVATE, null);
+        db = openOrCreateDatabase("consulta5.db", Context.MODE_PRIVATE, null);
 
         StringBuilder sql = new StringBuilder();
         sql.append("CREATE TABLE IF NOT EXISTS medico (");
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         sql.append("CREATE TABLE IF NOT EXISTS paciente(");
         sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
         sql.append("nome VARCHAR(125), ");
-        sql.append("grp_sanguineo varchar(5), ");
+        sql.append("grp_sanguineo TINYINT(1), ");
         sql.append("logradouro VARCHAR(125), ");
         sql.append("numero MEDIUMINT(8), ");
         sql.append("cidade VARCHAR(50), ");
