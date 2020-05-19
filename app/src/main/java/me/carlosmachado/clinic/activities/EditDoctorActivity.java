@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import me.carlosmachado.clinic.R;
+import me.carlosmachado.clinic.auxliary.Mask;
 
 public class EditDoctorActivity extends AppCompatActivity {
 
@@ -52,6 +53,8 @@ public class EditDoctorActivity extends AppCompatActivity {
 
         final String id = valores.getStringExtra("id");
 
+        etCellphone.addTextChangedListener(Mask.insert("(##)#####-####", etCellphone));
+        etPhone.addTextChangedListener(Mask.insert("(##)####-####", etPhone));
 
         Button clickEdit = findViewById(R.id.btnEdit);
         clickEdit.setOnClickListener(new View.OnClickListener() {

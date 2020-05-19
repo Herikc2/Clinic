@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import me.carlosmachado.clinic.R;
+import me.carlosmachado.clinic.auxliary.Mask;
 
 public class AddPatientActivity extends AppCompatActivity {
 
@@ -56,6 +57,9 @@ public class AddPatientActivity extends AppCompatActivity {
 
         ArrayAdapter spArrayAdapterBlood = ArrayAdapter.createFromResource(getApplicationContext(), R.array.blood_types_array, android.R.layout.simple_list_item_checked);
         spBloodTypes.setAdapter(spArrayAdapterBlood);
+
+        etCellphone.addTextChangedListener(Mask.insert("(##)#####-####", etCellphone));
+        etPhone.addTextChangedListener(Mask.insert("(##)####-####", etPhone));
     }
 
     private void clearFills(){

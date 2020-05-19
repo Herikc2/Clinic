@@ -94,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
         sql.append("logradouro VARCHAR(125), ");
         sql.append("numero MEDIUMINT(8), ");
         sql.append("cidade VARCHAR(60), ");
-        sql.append("uf VARCHAR(50), ");
-        sql.append("celular VARCHAR(20), ");
-        sql.append("fixo VARCHAR(20)");
+        sql.append("uf VARCHAR(27), ");
+        sql.append("celular CHAR(14), ");
+        sql.append("fixo CHAR(13)");
         sql.append(");");
 
         sql.append("CREATE TABLE IF NOT EXISTS paciente(");
@@ -106,9 +106,9 @@ public class MainActivity extends AppCompatActivity {
         sql.append("logradouro VARCHAR(125), ");
         sql.append("numero MEDIUMINT(8), ");
         sql.append("cidade VARCHAR(50), ");
-        sql.append("uf VARCHAR(50), ");
-        sql.append("celular VARCHAR(20), ");
-        sql.append("fixo VARCHAR(20)");
+        sql.append("uf VARCHAR(27), ");
+        sql.append("celular CHAR(14), ");
+        sql.append("fixo CHAR(13)");
         sql.append(");");
 
         sql.append("CREATE TABLE IF NOT EXISTS consulta (");

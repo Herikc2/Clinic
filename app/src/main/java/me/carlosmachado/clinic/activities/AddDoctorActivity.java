@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import me.carlosmachado.clinic.R;
+import me.carlosmachado.clinic.auxliary.Mask;
 
 public class AddDoctorActivity extends AppCompatActivity {
 
@@ -53,6 +54,9 @@ public class AddDoctorActivity extends AppCompatActivity {
 
         ArrayAdapter spArrayAdapterStates = ArrayAdapter.createFromResource(getApplicationContext(), R.array.brazil_states_array, android.R.layout.simple_list_item_checked);
         spStates.setAdapter(spArrayAdapterStates);
+
+        etCellphone.addTextChangedListener(Mask.insert("(##)#####-####", etCellphone));
+        etPhone.addTextChangedListener(Mask.insert("(##)####-####", etPhone));
     }
 
     private void clearFills(){
