@@ -84,17 +84,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void criarDB(){
-        db = openOrCreateDatabase("consulta5.db", Context.MODE_PRIVATE, null);
+        db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
 
         StringBuilder sql = new StringBuilder();
         sql.append("CREATE TABLE IF NOT EXISTS medico (");
         sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
-        sql.append("nome VARCHAR(50), ");
+        sql.append("nome VARCHAR(125), ");
         sql.append("crm VARCHAR(20), ");
-        sql.append("logradouro VARCHAR(100), ");
+        sql.append("logradouro VARCHAR(125), ");
         sql.append("numero MEDIUMINT(8), ");
-        sql.append("cidade VARCHAR(30), ");
-        sql.append("uf VARCHAR(2), ");
+        sql.append("cidade VARCHAR(60), ");
+        sql.append("uf VARCHAR(50), ");
         sql.append("celular VARCHAR(20), ");
         sql.append("fixo VARCHAR(20)");
         sql.append(");");
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         sql.append("CREATE TABLE IF NOT EXISTS paciente(");
         sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
         sql.append("nome VARCHAR(125), ");
-        sql.append("grp_sanguineo TINYINT(1), ");
+        sql.append("grp_sanguineo VARCHAR(5), ");
         sql.append("logradouro VARCHAR(125), ");
         sql.append("numero MEDIUMINT(8), ");
         sql.append("cidade VARCHAR(50), ");
@@ -123,7 +123,10 @@ public class MainActivity extends AppCompatActivity {
         sql.append(");");
 
         try {
-            db.execSQL(sql.toString());
+            String[] queries = sql.toString().split(";");
+            for(String query : queries){
+                db.execSQL(query);
+            }
         } catch (SQLException e) {
             Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }

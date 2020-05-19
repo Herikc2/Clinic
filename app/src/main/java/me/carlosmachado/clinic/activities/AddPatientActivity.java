@@ -95,13 +95,13 @@ public class AddPatientActivity extends AppCompatActivity {
         } else if (spBloodTypes.getSelectedItemPosition() == 0) {
             Toast.makeText(getApplicationContext(), "Por favor, informe o seu tipo sanguingeo!", Toast.LENGTH_LONG).show();
         } else {
-            db = openOrCreateDatabase("consulta5.db", Context.MODE_PRIVATE, null);
+            db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
             StringBuilder sql = new StringBuilder();
-            int bloodType = spBloodTypes.getSelectedItemPosition();
+            String bloodType = spBloodTypes.getSelectedItem().toString();
             String state = spStates.getSelectedItem().toString();
             sql.append("INSERT INTO paciente (nome,grp_sanguineo,logradouro,numero,cidade,uf,celular,fixo) VALUES (");
             sql.append("'" + name + "', ");
-            sql.append(bloodType + ", ");
+            sql.append("'" + bloodType + "', ");
             sql.append("'" + address + "', ");
             sql.append(number + ", ");
             sql.append("'" + city + "', ");

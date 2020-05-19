@@ -86,7 +86,7 @@
             android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/cellphone"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/etPhone"
@@ -95,7 +95,7 @@
             android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/phone"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
 
         <Button
             android:id="@+id/btnAdd"
