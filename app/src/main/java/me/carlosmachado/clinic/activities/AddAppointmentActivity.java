@@ -35,6 +35,11 @@ public class AddAppointmentActivity extends AppCompatActivity {
     Spinner spPatients;
     Spinner spDoctors;
 
+    int hora_inicial;
+    int minuto_inicial;
+    int hora_final;
+    int minuto_final;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +105,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
 
             datePickerDialog.show();
         } else if (op.equals("1")) {
-            tvDateFinal.setText(tvDateStart.getText().subSequence(0, 9));
+            tvDateFinal.setText(tvDateStart.getText().subSequence(0, 10));
             pickerTime("1");
         }
     }
@@ -114,10 +119,16 @@ public class AddAppointmentActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute){
                 String timeString = hour + ":" + minute;
-                if(op.equals("0"))
+                if(op.equals("0")) {
+                    hora_inicial = hour;
+                    minuto_inicial = minute;
                     tvDateStart.setText(tvDateStart.getText() + " " + timeString);
-                else if(op.equals("1"))
+                }
+                else if(op.equals("1")) {
+                    hora_final = hour;
+                    minuto_final = minute;
                     tvDateFinal.setText(tvDateFinal.getText() + " " + timeString);
+                }
             }
         }, HOUR, MINUTE, true);
         timePickerDialog.show();
@@ -133,11 +144,13 @@ public class AddAppointmentActivity extends AppCompatActivity {
     }
 
     private boolean validation(){
-        int hora_inicial = Integer.parseInt(tvDateStart.getText().toString().substring(10, 11));
-        int minuto_inicial = Integer.parseInt(tvDateStart.getText().subSequence(13, 14).toString());
+        String a =tvDateStart.getText().toString();
+        String b = tvDateFinal.getText().toString();
+        /*int hora_inicial = Integer.parseInt(tvDateStart.getText().toString().substring(11, 12));
+        int minuto_inicial = Integer.parseInt(tvDateStart.getText().subSequence(14, 15).toString());
 
-        int hora_final = Integer.parseInt(tvDateFinal.getText().subSequence(10, 11).toString());
-        int minuto_final = Integer.parseInt(tvDateFinal.getText().subSequence(13, 14).toString());
+        int hora_final = Integer.parseInt(tvDateFinal.getText().toString().substring(11, 12));
+        int minuto_final = Integer.parseInt(tvDateFinal.getText().subSequence(14, 15).toString());*/
 
         if((hora_inicial >= 8 && hora_inicial <= 12) || (hora_inicial >= 13 && hora_inicial <= 17)){
             if(hora_inicial == 12 && minuto_inicial > 0)

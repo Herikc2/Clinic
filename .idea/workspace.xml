@@ -7,29 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a85e93f-a5de-41a3-b62d-bd36c99d1c3e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/auxliary/Person.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dados_appointment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/AddAppointmentActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/AddAppointmentActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/AddPatientActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/AddPatientActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/EditAppointmentActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/EditAppointmentActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/EditPatientActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/EditPatientActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/ListAppointmentActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/ListAppointmentActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/ListPatientActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/ListPatientActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_appointment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_appointment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_appointment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_appointment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_list_appointment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_list_appointment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/actvity_list_patient.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/actvity_list_patient.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -211,7 +199,14 @@
       <option name="project" value="LOCAL" />
       <updated>1589943145648</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Inicio Validacao data e hora">
+      <created>1589999686835</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1589999686835</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -235,22 +230,7 @@
     <MESSAGE value="Implementado Pacient e Doctor, ambos Insert, Select e Delete" />
     <MESSAGE value="Mascara em Doctor e Patient" />
     <MESSAGE value="Seleção de datas de agendamento" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seleção de datas de agendamento" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/EditAppointmentActivity.java</url>
-          <line>98</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/me/carlosmachado/clinic/activities/AddAppointmentActivity.java</url>
-          <line>135</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Inicio Validacao data e hora" />
+    <option name="LAST_COMMIT_MESSAGE" value="Inicio Validacao data e hora" />
   </component>
 </project>

@@ -138,7 +138,7 @@ public class EditAppointmentActivity extends AppCompatActivity {
 
             datePickerDialog.show();
         } else if (op.equals("1")) {
-            tvDateFinal.setText(tvDateStart.getText().subSequence(0, 9));
+            tvDateFinal.setText(tvDateStart.getText().subSequence(0, 10));
             pickerTime("1");
         }
     }
