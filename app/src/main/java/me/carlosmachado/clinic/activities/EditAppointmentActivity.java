@@ -39,6 +39,11 @@ public class EditAppointmentActivity extends AppCompatActivity {
     Spinner spPatients;
     Spinner spDoctors;
 
+    int hora_inicial;
+    int minuto_inicial;
+    int hora_final;
+    int minuto_final;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,9 +97,13 @@ public class EditAppointmentActivity extends AppCompatActivity {
         etDescription.setText(valores.getStringExtra("description"));
         IdPatient = valores.getStringExtra("idPatient");
         IdDoctor = valores.getStringExtra("idDoctor");
-        selectDoctors();
 
         String patientsExtra = valores.getStringExtra("idPatient");
+
+        hora_inicial = Integer.parseInt(tvDateStart.getText().toString().substring(11, 12));
+        minuto_inicial = Integer.parseInt(tvDateStart.getText().toString().substring(14, 15));
+        hora_final = Integer.parseInt(tvDateFinal.getText().toString().substring(11, 12));
+        minuto_final = Integer.parseInt(tvDateFinal.getText().toString().substring(14, 15));
 
         Person[] patientsArray = selectPatients();
         for(int i = 0; i < patientsArray.length; i++)
@@ -151,23 +160,34 @@ public class EditAppointmentActivity extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute){
-                String timeString = hour + ":" + minute;
-                if(op.equals("0"))
+                String timeString = "";
+                if(hour >=0 && hour < 10)
+                    if(minute >=0 && minute < 10)
+                        timeString = "0" + hour + ":" + "0" + minute;
+                    else
+                        timeString = "0" + hour + ":" + minute;
+                else
+                if(minute >=0 && minute < 10)
+                    timeString = hour + ":" + "0" + minute;
+                else
+                    timeString = hour + ":" + minute;
+                
+                if(op.equals("0")) {
+                    hora_inicial = hour;
+                    minuto_inicial = minute;
                     tvDateStart.setText(tvDateStart.getText() + " " + timeString);
-                else if(op.equals("1"))
+                }
+                else if(op.equals("1")) {
+                    hora_final = hour;
+                    minuto_final = minute;
                     tvDateFinal.setText(tvDateFinal.getText() + " " + timeString);
+                }
             }
         }, HOUR, MINUTE, true);
         timePickerDialog.show();
     }
 
-    private boolean validation(){
-        int hora_inicial = Integer.parseInt(tvDateStart.getText().subSequence(10, 11).toString());
-        int minuto_inicial = Integer.parseInt(tvDateStart.getText().subSequence(13, 14).toString());
-
-        int hora_final = Integer.parseInt(tvDateFinal.getText().subSequence(10, 11).toString());
-        int minuto_final = Integer.parseInt(tvDateFinal.getText().subSequence(13, 14).toString());
-
+    private boolean validationHour(){
         if((hora_inicial >= 8 && hora_inicial <= 12) || (hora_inicial >= 13 && hora_inicial <= 17)){
             if(hora_inicial == 12 && minuto_inicial > 0)
                 return false;
@@ -188,6 +208,11 @@ public class EditAppointmentActivity extends AppCompatActivity {
         } else
             return false;
 
+        if(hora_final < hora_inicial)
+            return false;
+        if(hora_inicial == hora_final && minuto_final <= minuto_inicial)
+            return false;
+
         if(hora_inicial >= 8 && hora_inicial <= 12){
             if(hora_final > 12 || (hora_final == 12 && minuto_final > 0))
                 return false;
@@ -204,6 +229,27 @@ public class EditAppointmentActivity extends AppCompatActivity {
             return true;
         }
 
+        return true;
+    }
+
+    private boolean validationAppointment(){
+        String a = tvDateStart.getText().toString();
+        String b = tvDateFinal.getText().toString();
+
+        db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT paciente_id FROM consulta");
+        sql.append(" where data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
+        //sql.append(" or data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
+        //sql.append(" where data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
+        Cursor cursor = db.rawQuery(sql.toString(), null);
+
+        if(cursor != null) {
+            if(cursor.getCount() > 0)
+                return false;
+        }
+
+        db.close();
         return true;
     }
 
@@ -291,11 +337,17 @@ public class EditAppointmentActivity extends AppCompatActivity {
         } else if (description.equals("")) {
             Toast.makeText(getApplicationContext(), "Por favor, informe a descrição!", Toast.LENGTH_LONG).show();
         } else {
-            if(!validation()) {
+            if(!validationHour()) {
                 Toast.makeText(getApplicationContext(), "Expediente do consultório: 08:00 até 12:00;\n" +
                         "13:30 até 17:30\n", Toast.LENGTH_LONG).show();
                 return;
             }
+
+            if(!validationAppointment()) {
+                Toast.makeText(getApplicationContext(), "Já possui um agendamento para esse horário!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
             StringBuilder sql = new StringBuilder();
             Person patient = ((Person)spPatients.getSelectedItem());
