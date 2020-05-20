@@ -47,7 +47,9 @@
             android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/start_date"
-            android:inputType="date" />
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false" />
 
         <EditText
             android:id="@+id/tvEndDate"
@@ -56,7 +58,9 @@
             android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/end_date"
-            android:inputType="date" />
+            android:inputType="date"
+            android:clickable="true"
+            android:focusable="false"/>
 
         <EditText
             android:id="@+id/etIntegrates"
