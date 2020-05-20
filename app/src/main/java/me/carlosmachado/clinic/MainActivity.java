@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         sql.append("CREATE TABLE IF NOT EXISTS paciente(");
         sql.append("_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, ");
-        sql.append("nome VARCHAR(125), ");
+        sql.append("nome_ VARCHAR(125), ");
         sql.append("grp_sanguineo VARCHAR(5), ");
         sql.append("logradouro VARCHAR(125), ");
         sql.append("numero MEDIUMINT(8), ");

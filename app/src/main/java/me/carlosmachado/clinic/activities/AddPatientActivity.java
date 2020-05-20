@@ -103,7 +103,7 @@ public class AddPatientActivity extends AppCompatActivity {
             StringBuilder sql = new StringBuilder();
             String bloodType = spBloodTypes.getSelectedItem().toString();
             String state = spStates.getSelectedItem().toString();
-            sql.append("INSERT INTO paciente (nome,grp_sanguineo,logradouro,numero,cidade,uf,celular,fixo) VALUES (");
+            sql.append("INSERT INTO paciente (nome_,grp_sanguineo,logradouro,numero,cidade,uf,celular,fixo) VALUES (");
             sql.append("'" + name + "', ");
             sql.append("'" + bloodType + "', ");
             sql.append("'" + address + "', ");

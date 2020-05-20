@@ -27,7 +27,7 @@
             android:text="@string/all_fields" />
 
         <Spinner
-            android:id="@+id/spPatient"
+            android:id="@+id/spPatient_"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_marginBottom="10dp"

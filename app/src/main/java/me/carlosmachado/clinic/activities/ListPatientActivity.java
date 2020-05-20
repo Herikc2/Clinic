@@ -3,7 +3,6 @@ package me.carlosmachado.clinic.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,7 +26,7 @@ public class ListPatientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actvity_list_patient);
 
-        lvPatient = findViewById(R.id.lvPatients);
+        lvPatient = findViewById(R.id.lvAppointment);
 
         select();
         lvPatient.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,7 +63,7 @@ public class ListPatientActivity extends AppCompatActivity {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM paciente;");
         Cursor dados_patient = db.rawQuery(sql.toString(), null);
-        String[] from = {"_id", "nome", "grp_sanguineo", "logradouro", "numero", "cidade", "uf", "celular", "fixo"};
+        String[] from = {"_id", "nome_", "grp_sanguineo", "logradouro", "numero", "cidade", "uf", "celular", "fixo"};
         int[] to = {R.id.tvListId, R.id.tvListName, R.id.tvListBloodType, R.id.tvListAddress, R.id.tvListNumber, R.id.tvListCity, R.id.tvListState, R.id.tvListCellPhone, R.id.tvListPhone};
 
         SimpleCursorAdapter scAdapter = new SimpleCursorAdapter(getApplicationContext(), R.layout.dados_patient, dados_patient, from, to, 0);

@@ -148,7 +148,7 @@ public class EditPatientActivity extends AppCompatActivity {
             String bloodType = spBloodTypes.getSelectedItem().toString();
             String state = spStates.getSelectedItem().toString();
             sql.append("UPDATE paciente SET");
-            sql.append(" nome = '" + name + "', ");
+            sql.append(" nome_ = '" + name + "', ");
             sql.append("grp_sanguineo  = '" + bloodType + "', ");
             sql.append("logradouro = '" + address + "', ");
             sql.append("numero = " + number + ", ");
