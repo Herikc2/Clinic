@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -171,7 +173,7 @@ public class EditAppointmentActivity extends AppCompatActivity {
                     timeString = hour + ":" + "0" + minute;
                 else
                     timeString = hour + ":" + minute;
-                
+
                 if(op.equals("0")) {
                     hora_inicial = hour;
                     minuto_inicial = minute;
@@ -312,6 +314,24 @@ public class EditAppointmentActivity extends AppCompatActivity {
         return doctorsArray;
     }
 
+    private boolean checkFDS(String dataS)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar data = Calendar.getInstance();
+        try {
+            data.setTime(sdf.parse(dataS));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (data.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+            return false;
+        else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+            return false;
+        else
+            return true;
+    }
+
     private void clearFills(){
         etDescription.setText("");
         tvDateStart.setText("");
@@ -340,6 +360,11 @@ public class EditAppointmentActivity extends AppCompatActivity {
             if(!validationHour()) {
                 Toast.makeText(getApplicationContext(), "Expediente do consultório: 08:00 até 12:00;\n" +
                         "13:30 até 17:30\n", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if(!checkFDS(dateStart)){
+                Toast.makeText(getApplicationContext(), "Expediente do consultório de Segunda a Sexta-Feira\n", Toast.LENGTH_LONG).show();
                 return;
             }
 
