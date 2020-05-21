@@ -70,8 +70,6 @@ public class ListAppointmentActivity extends AppCompatActivity {
         lvAppointment.setAdapter(scAdapter);
 
         db.close();
-        // TODO: Selecionar na tabela "appointment" todas as consultas
-        // TODO: Adicionar à view todas as consultas da tabela "appointment"
     }
 
 }

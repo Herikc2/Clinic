@@ -5,17 +5,18 @@
     android:orientation="vertical" >
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1dp"
         android:id="@+id/tvListId"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        android:layout_marginTop="10dp"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1dp"
         android:id="@+id/tvListIdPatient"
         android:visibility="invisible"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="1dp"
         android:id="@+id/tvListIdDoctor"
         android:visibility="invisible"/>
     <TextView
@@ -37,5 +38,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/tvListDescription"/>
+        android:id="@+id/tvListDescription"
+        android:layout_marginBottom="13dp"/>
 </LinearLayout>

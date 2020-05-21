@@ -18,15 +18,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import me.carlosmachado.clinic.R;
 import me.carlosmachado.clinic.auxliary.Person;
+import me.carlosmachado.clinic.auxliary.ValidationAppointment;
 
 public class AddAppointmentActivity extends AppCompatActivity {
 
@@ -91,7 +90,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int date) {
-                    String dateString = "";
+                    String dateString;
                     if(month < 10) {
                         dateString = date + "/" + "0" + (month + 1) + "/" + year;
                     }
@@ -99,11 +98,9 @@ public class AddAppointmentActivity extends AppCompatActivity {
                         dateString = date + "/" + (month + 1) + "/" + year;
                     }
 
-                    if(op.equals("0")) {
-                        tvDateStart.setText(dateString);
-                        tvDateFinal.setText(dateString);
-                        pickerTime("0");
-                    }
+                    tvDateStart.setText(dateString);
+                    tvDateFinal.setText(dateString);
+                    pickerTime("0");
                 }
             }, YEAR, MONTH, DATE);
 
@@ -116,23 +113,29 @@ public class AddAppointmentActivity extends AppCompatActivity {
 
     private void pickerTime(final String op){
         Calendar calendar = Calendar.getInstance();
-        int HOUR = calendar.get(Calendar.HOUR);
-        int MINUTE = calendar.get(Calendar.MINUTE);
+        int HOUR = 0, MINUTE = 0;
+        if(op.equals("0")){
+            HOUR = calendar.get(Calendar.HOUR);
+            MINUTE = calendar.get(Calendar.MINUTE);
+        } else if(op.equals("1")){
+            HOUR = hora_inicial;
+            MINUTE = minuto_inicial;
+        }
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute){
-                String timeString = "";
+                String timeString;
                 if(hour >=0 && hour < 10)
                     if(minute >=0 && minute < 10)
                         timeString = "0" + hour + ":" + "0" + minute;
                     else
                         timeString = "0" + hour + ":" + minute;
                 else
-                    if(minute >=0 && minute < 10)
-                        timeString = hour + ":" + "0" + minute;
-                    else
-                        timeString = hour + ":" + minute;
+                if(minute >=0 && minute < 10)
+                    timeString = hour + ":" + "0" + minute;
+                else
+                    timeString = hour + ":" + minute;
 
                 if(op.equals("0")) {
                     hora_inicial = hour;
@@ -158,51 +161,6 @@ public class AddAppointmentActivity extends AppCompatActivity {
         spDoctors.setSelection(0);
     }
 
-    private boolean validationHour(){
-        if((hora_inicial >= 8 && hora_inicial <= 12) || (hora_inicial >= 13 && hora_inicial <= 17)){
-            if(hora_inicial == 12 && minuto_inicial > 0)
-                return false;
-            if(hora_inicial == 13 && minuto_inicial < 30)
-                return false;
-            if(hora_inicial ==  17 && minuto_inicial > 30)
-                return false;
-        } else
-            return false;
-
-        if((hora_final >= 8 && hora_final <= 12) || (hora_final >= 13 && hora_final <= 17)){
-            if(hora_final == 12 && minuto_final > 0)
-                return false;
-            if(hora_final == 13 && minuto_final < 30)
-                return false;
-            if(hora_final ==  17 && minuto_final > 30)
-                return false;
-        } else
-            return false;
-
-        if(hora_final < hora_inicial)
-            return false;
-        if(hora_inicial == hora_final && minuto_final <= minuto_inicial)
-            return false;
-
-        if(hora_inicial >= 8 && hora_inicial <= 12){
-            if(hora_final > 12 || (hora_final == 12 && minuto_final > 0))
-                return false;
-            return true;
-        }
-
-        if(hora_inicial >= 13 && hora_inicial <= 17){
-            if(hora_final == 13 && minuto_final < 30)
-                return false;
-            if(hora_final == 17 && minuto_final > 30)
-                return false;
-            if(hora_final < 13 || hora_final > 17)
-                return false;
-            return true;
-        }
-
-        return true;
-    }
-
     private boolean validationAppointment(){
         String a = tvDateStart.getText().toString();
         String b = tvDateFinal.getText().toString();
@@ -224,22 +182,41 @@ public class AddAppointmentActivity extends AppCompatActivity {
         return true;
     }
 
-    private boolean checkFDS(String dataS)
-    {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Calendar data = Calendar.getInstance();
-        try {
-            data.setTime(sdf.parse(dataS));
-        } catch (ParseException e) {
-            e.printStackTrace();
+    private boolean validations(){
+        ValidationAppointment val = new ValidationAppointment();
+        String dateStart = tvDateStart.getText().toString().trim();
+        String dateFinal = tvDateFinal.getText().toString().trim();
+        String description = etDescription.getText().toString().trim();
+
+        if (spPatients.getSelectedItemPosition() == 0) {
+            Toast.makeText(getApplicationContext(), "Por favor, informe um paciente!", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (spDoctors.getSelectedItemPosition() == 0) {
+            Toast.makeText(getApplicationContext(), "Por favor, informe um médico!", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (dateStart.equals("")) {
+            Toast.makeText(getApplicationContext(), "Por favor, informe a data de inicio!", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (dateFinal.equals("")) {
+            Toast.makeText(getApplicationContext(), "Por favor, informe a data final!", Toast.LENGTH_LONG).show();
+            return false;
+        } else if (description.equals("")) {
+            Toast.makeText(getApplicationContext(), "Por favor, informe a descrição!", Toast.LENGTH_LONG).show();
+            return false;
         }
 
-        if (data.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+        if(!val.validationHour(hora_inicial, hora_final, minuto_inicial, minuto_final)) {
+            Toast.makeText(getApplicationContext(), "Expediente do consultório: 08:00 até 12:00 e \n" +
+                    "13:30 até 17:30\n", Toast.LENGTH_LONG).show();
             return false;
-        else if (data.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY)
+        } else if(!val.checkFDS(tvDateStart.getText().toString().trim())){
+            Toast.makeText(getApplicationContext(), "Expediente do consultório de Segunda a Sexta-Feira\n", Toast.LENGTH_LONG).show();
             return false;
-        else
-            return true;
+        } /*else if(!validationAppointment()) {
+            Toast.makeText(getApplicationContext(), "Já possui um agendamento para esse horário!", Toast.LENGTH_LONG).show();
+            return false;
+        }*/
+        return true;
     }
 
     private void insert() {
@@ -247,33 +224,9 @@ public class AddAppointmentActivity extends AppCompatActivity {
         String dateFinal = tvDateFinal.getText().toString().trim();
         String description = etDescription.getText().toString().trim();
 
-        if (spPatients.getSelectedItemPosition() == 0) {
-            Toast.makeText(getApplicationContext(), "Por favor, informe um paciente!", Toast.LENGTH_LONG).show();
-        } else if (spDoctors.getSelectedItemPosition() == 0) {
-            Toast.makeText(getApplicationContext(), "Por favor, informe um médico!", Toast.LENGTH_LONG).show();
-        } else if (dateStart.equals("")) {
-            Toast.makeText(getApplicationContext(), "Por favor, informe a data de inicio!", Toast.LENGTH_LONG).show();
-        } else if (dateFinal.equals("")) {
-            Toast.makeText(getApplicationContext(), "Por favor, informe a data final!", Toast.LENGTH_LONG).show();
-        } else if (description.equals("")) {
-            Toast.makeText(getApplicationContext(), "Por favor, informe a descrição!", Toast.LENGTH_LONG).show();
-        } else {
-            if(!validationHour()) {
-                Toast.makeText(getApplicationContext(), "Expediente do consultório: 08:00 até 12:00;\n" +
-                        "13:30 até 17:30\n", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            if(!checkFDS(dateStart)){
-                Toast.makeText(getApplicationContext(), "Expediente do consultório de Segunda a Sexta-Feira\n", Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            if(!validationAppointment()) {
-                Toast.makeText(getApplicationContext(), "Já possui um agendamento para esse horário!", Toast.LENGTH_LONG).show();
-                return;
-            }
-
+        if(!validations())
+            return;
+        else {
             db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
             StringBuilder sql = new StringBuilder();
             Person patient = ((Person)spPatients.getSelectedItem());
