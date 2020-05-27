@@ -134,10 +134,16 @@ public class EditAppointmentActivity extends AppCompatActivity {
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     String dateString;
                     if(month < 10) {
-                        dateString = date + "/" + "0" + (month + 1) + "/" + year;
+                        if(date < 10)
+                            dateString = "0" + date + "/" + "0" + (month + 1) + "/" + year;
+                        else
+                            dateString = date + "/" + "0" + (month + 1) + "/" + year;
                     }
                     else {
-                        dateString = date + "/" + (month + 1) + "/" + year;
+                        if(date < 10)
+                            dateString = "0" + date + "/" + (month + 1) + "/" + year;
+                        else
+                            dateString = date + "/" + (month + 1) + "/" + year;
                     }
 
                     tvDateStart.setText(dateString);
