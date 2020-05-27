@@ -172,8 +172,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
         db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT paciente_id FROM consulta");
-        sql.append(" where data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "'");
-        sql.append(" or data_hora_fim BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
+        sql.append(" where data_hora_inicio <= '" + tvDateFinal.getText().toString() + "'");
+        sql.append(" and data_hora_fim >= '" + tvDateStart.getText().toString() + "';");
         Cursor cursor = db.rawQuery(sql.toString(), null);
 
         if(cursor != null) {
