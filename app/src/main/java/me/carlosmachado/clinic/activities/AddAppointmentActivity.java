@@ -22,6 +22,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import me.carlosmachado.clinic.R;
 import me.carlosmachado.clinic.auxliary.Person;
@@ -92,10 +93,16 @@ public class AddAppointmentActivity extends AppCompatActivity {
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     String dateString;
                     if(month < 10) {
-                        dateString = date + "/" + "0" + (month + 1) + "/" + year;
+                        if(date < 10)
+                            dateString = "0" + date + "/" + "0" + (month + 1) + "/" + year;
+                        else
+                            dateString = date + "/" + "0" + (month + 1) + "/" + year;
                     }
                     else {
-                        dateString = date + "/" + (month + 1) + "/" + year;
+                        if(date < 10)
+                            dateString = "0" + date + "/" + (month + 1) + "/" + year;
+                        else
+                            dateString = date + "/" + (month + 1) + "/" + year;
                     }
 
                     tvDateStart.setText(dateString);
@@ -132,10 +139,10 @@ public class AddAppointmentActivity extends AppCompatActivity {
                     else
                         timeString = "0" + hour + ":" + minute;
                 else
-                if(minute >=0 && minute < 10)
-                    timeString = hour + ":" + "0" + minute;
-                else
-                    timeString = hour + ":" + minute;
+                    if(minute >=0 && minute < 10)
+                        timeString = hour + ":" + "0" + minute;
+                    else
+                        timeString = hour + ":" + minute;
 
                 if(op.equals("0")) {
                     hora_inicial = hour;
@@ -161,16 +168,12 @@ public class AddAppointmentActivity extends AppCompatActivity {
         spDoctors.setSelection(0);
     }
 
-    private boolean validationAppointment(){
-        String a = tvDateStart.getText().toString();
-        String b = tvDateFinal.getText().toString();
-
+    private boolean validationAppointment() {
         db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT paciente_id FROM consulta");
-        sql.append(" where data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
-        //sql.append(" or data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
-        //sql.append(" where data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
+        sql.append(" where data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "'");
+        sql.append(" or data_hora_fim BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
         Cursor cursor = db.rawQuery(sql.toString(), null);
 
         if(cursor != null) {
@@ -205,17 +208,23 @@ public class AddAppointmentActivity extends AppCompatActivity {
             return false;
         }
 
-        if(!val.validationHour(hora_inicial, hora_final, minuto_inicial, minuto_final)) {
+        if (dateFinal.equals(dateStart.substring(0, 10))){
+            Toast.makeText(getApplicationContext(), "Preencha um horario para finalizar a consulta", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(!val.validationHour(hora_inicial, hora_final, minuto_inicial, minuto_final)) {
             Toast.makeText(getApplicationContext(), "Expediente do consultório: 08:00 até 12:00 e \n" +
                     "13:30 até 17:30\n", Toast.LENGTH_LONG).show();
             return false;
         } else if(!val.checkFDS(tvDateStart.getText().toString().trim())){
             Toast.makeText(getApplicationContext(), "Expediente do consultório de Segunda a Sexta-Feira\n", Toast.LENGTH_LONG).show();
             return false;
-        } /*else if(!validationAppointment()) {
+        } else if(!validationAppointment()) {
             Toast.makeText(getApplicationContext(), "Já possui um agendamento para esse horário!", Toast.LENGTH_LONG).show();
             return false;
-        }*/
+        } else if(!val.dateIsCurrent(dateStart)){
+            Toast.makeText(getApplicationContext(), "Essa data já passou!", Toast.LENGTH_LONG).show();
+            return false;
+        }
         return true;
     }
 

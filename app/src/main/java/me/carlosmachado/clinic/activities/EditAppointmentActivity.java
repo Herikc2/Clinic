@@ -194,7 +194,25 @@ public class EditAppointmentActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-    private boolean validations(){
+    private boolean validationAppointment(String id) {
+        db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT paciente_id FROM consulta");
+        sql.append(" where (data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "'");
+        sql.append(" or data_hora_fim BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "')");
+        sql.append(" and _id != " + id + ";");
+        Cursor cursor = db.rawQuery(sql.toString(), null);
+
+        if(cursor != null) {
+            if(cursor.getCount() > 0)
+                return false;
+        }
+
+        db.close();
+        return true;
+    }
+
+    private boolean validations(String id){
         ValidationAppointment val = new ValidationAppointment();
         String dateStart = tvDateStart.getText().toString().trim();
         String dateFinal = tvDateFinal.getText().toString().trim();
@@ -217,38 +235,23 @@ public class EditAppointmentActivity extends AppCompatActivity {
             return false;
         }
 
-        if(!val.validationHour(hora_inicial, hora_final, minuto_inicial, minuto_final)) {
+        if (dateFinal.equals(dateStart.substring(0, 10))){
+            Toast.makeText(getApplicationContext(), "Preencha um horario para finalizar a consulta", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(!val.validationHour(hora_inicial, hora_final, minuto_inicial, minuto_final)) {
             Toast.makeText(getApplicationContext(), "Expediente do consultório: 08:00 até 12:00 e \n" +
                     "13:30 até 17:30\n", Toast.LENGTH_LONG).show();
             return false;
         } else if(!val.checkFDS(tvDateStart.getText().toString().trim())){
             Toast.makeText(getApplicationContext(), "Expediente do consultório de Segunda a Sexta-Feira\n", Toast.LENGTH_LONG).show();
             return false;
-        } /*else if(!validationAppointment()) {
+        } else if(!validationAppointment(id)) {
             Toast.makeText(getApplicationContext(), "Já possui um agendamento para esse horário!", Toast.LENGTH_LONG).show();
             return false;
-        }*/
-        return true;
-    }
-
-    private boolean validationAppointment(){
-        String a = tvDateStart.getText().toString();
-        String b = tvDateFinal.getText().toString();
-
-        db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT paciente_id FROM consulta");
-        sql.append(" where data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
-        //sql.append(" or data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
-        //sql.append(" where data_hora_inicio BETWEEN '" + tvDateStart.getText().toString() + "' and '" + tvDateFinal.getText().toString() + "';");
-        Cursor cursor = db.rawQuery(sql.toString(), null);
-
-        if(cursor != null) {
-            if(cursor.getCount() > 0)
-                return false;
+        }else if(!val.dateIsCurrent(dateStart)){
+            Toast.makeText(getApplicationContext(), "Essa data já passou!", Toast.LENGTH_LONG).show();
+            return false;
         }
-
-        db.close();
         return true;
     }
 
@@ -325,7 +328,7 @@ public class EditAppointmentActivity extends AppCompatActivity {
         String dateFinal = tvDateFinal.getText().toString().trim();
         String description = etDescription.getText().toString().trim();
 
-        if(!validations())
+        if(!validations(id))
             return;
         else {
             db = openOrCreateDatabase("consulta.db", Context.MODE_PRIVATE, null);

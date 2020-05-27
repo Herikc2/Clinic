@@ -66,4 +66,63 @@ public class ValidationAppointment {
             return true;
     }
 
+    public boolean dateIsCurrent(String dateStart) {
+        Calendar calendar = Calendar.getInstance();
+        int Current_YEAR = calendar.get(Calendar.YEAR);
+        int Current_MONTH = calendar.get(Calendar.MONTH) + 1;
+        int Current_DATE = calendar.get(Calendar.DATE);
+        int Current_HOUR = calendar.get(Calendar.HOUR);
+        int Current_MINUTE = calendar.get(Calendar.MINUTE);
+
+        int YEAR = Integer.parseInt(dateStart.substring(6, 10));
+        int MONTH = Integer.parseInt(dateStart.substring(3, 5));
+        int DATE = Integer.parseInt(dateStart.substring(0, 2));
+        int HOUR = _24hTo12h(Integer.parseInt(dateStart.substring(11, 13)));
+        int MINUTE = Integer.parseInt(dateStart.substring(14, 16));
+
+        if(YEAR < Current_YEAR)
+            return false;
+        else
+        if(YEAR == Current_YEAR)
+            if(MONTH < Current_MONTH)
+                return false;
+            else if(MONTH == Current_MONTH)
+                if(DATE < Current_DATE)
+                    return false;
+                else if(DATE == Current_DATE)
+                    if(HOUR < Current_HOUR)
+                        return false;
+                    else if(HOUR == Current_HOUR)
+                        if(MINUTE < Current_MINUTE)
+                            return false;
+
+        return true;
+    }
+
+    public static int _24hTo12h(int hour){
+        if(hour == 13)
+            return 1;
+        else if(hour == 14)
+            return 2;
+        else if(hour == 15)
+            return 3;
+        else if(hour == 16)
+            return 4;
+        else if(hour == 17)
+            return 5;
+        else if(hour == 18)
+            return 6;
+        else if(hour == 19)
+            return 7;
+        else if(hour == 20)
+            return 8;
+        else if(hour == 21)
+            return 9;
+        else if(hour == 22)
+            return 10;
+        else if(hour == 23)
+            return 11;
+        return 0;
+    }
+
 }
