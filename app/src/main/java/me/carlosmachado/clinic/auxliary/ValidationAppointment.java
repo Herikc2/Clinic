@@ -122,7 +122,8 @@ public class ValidationAppointment {
             return 10;
         else if(hour == 23)
             return 11;
-        return 0;
+        else
+            return hour;
     }
 
 }
